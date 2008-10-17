@@ -142,6 +142,8 @@
         bedtime.time.hour = [[_bedtime valueForKey:@"hour"] intValue];
         bedtime.time.minute = [[_bedtime valueForKey:@"minute"] intValue];
         bedtime.nagText = [_bedtime valueForKey:@"nagText"];
+        if (bedtime.nagText == nil)
+            bedtime.nagText = @"";
         [bedtimes addObject:bedtime];
     }
     

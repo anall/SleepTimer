@@ -12,7 +12,17 @@
 @implementation Bedtime
 @synthesize enabled, time, nagText;
 
-- (void) dealloc {
+-(id)init {
+    self = [super init];
+    if (self != nil) {
+        enabled = YES;
+        self.nagText = @"";
+        self.time = nil;
+    }
+    return self;
+}
+
+-(void)dealloc {
     [time release];
     [nagText release];
     [super dealloc];
