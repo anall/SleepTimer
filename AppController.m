@@ -12,6 +12,7 @@
 
 @interface AppController (Private)
 -(Bedtime*)getNearestBedtime:(NSDate **)date;
+-(Bedtime*)getNearestBedtime:(NSDate **)date after:(NSDateComponents *)components;
 -(void)popWindowToFrontAwayFromCursor:(NSWindow *)theWindow;
 
 
@@ -205,12 +206,40 @@
     }
     unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit;
     NSDateComponents *components = [gregorian components:unitFlags fromDate:currentDate];
-    NSDateComponents *bedtimeTime = nil;
     
     self.skipPast = nil;
     
     // Lets see if we can find something today
     // The first one we find in the future is nearest.
+    bedtime = [self getNearestBedtime:_date after:components];
+    
+    if (bedtime != nil)
+        return bedtime;
+    
+    // Okay, there is nothing for today, so get the first enabled one for tomorrow.
+    NSDateComponents *addComponents = [[NSDateComponents alloc] init];
+    addComponents.day = 1;
+    
+    components = [gregorian components:unitFlags fromDate:[gregorian dateByAddingComponents:addComponents toDate:currentDate options:0]];
+    components.hour = 0;
+    components.minute = 0;
+    
+    [addComponents release];
+
+    bedtime = [self getNearestBedtime:_date after:components];
+    
+    if (bedtime != nil)
+        return bedtime;
+
+    // Oops, we found nothing.
+    *_date = nil;
+    return nil;
+}
+-(Bedtime*)getNearestBedtime:(NSDate **)_date after:(NSDateComponents *)components {
+    NSDateComponents *bedtimeTime = nil;
+    Bedtime *bedtime;
+    
+    *_date = nil;
     for (Bedtime *bTime in bedtimes) { 
         NSDateComponents *time = bTime.time;
         if (!bTime.enabled) {
@@ -224,48 +253,17 @@
             break;
         }
     }
-    
+
     if (bedtimeTime != nil) {
         components.hour = bedtimeTime.hour;
         components.minute = bedtimeTime.minute;
         components.second = 0;
         
-        NSDate *date = [gregorian dateFromComponents:components];
+        *_date = [gregorian dateFromComponents:components];
         
-        *_date = date;
         return bedtime;
     }
     
-    // Okay, there is nothing for today, so get the first enabled one for tomorrow.
-    for (Bedtime *bTime in bedtimes) { 
-        NSDateComponents *time = bTime.time;
-        if (bTime.enabled) {
-            bedtimeTime = time;
-            bedtime = bTime;
-            break;
-        }
-    }
-    
-    if (bedtimeTime != nil) {
-        components.hour = bedtimeTime.hour;
-        components.minute = bedtimeTime.minute;
-        components.second = 0;
-    
-        NSDate *date = [gregorian dateFromComponents:components];
-    
-        components = [[NSDateComponents alloc] init];
-        components.day = 1;
-    
-        date = [gregorian dateByAddingComponents:components toDate:date options:0];
-    
-        // And we should have the first alarm for tomorrow by now, so clean up and be done with it.
-        [components release];
-    
-        *_date = date;
-        return bedtime;
-    }
-    
-    *_date = nil;
     return nil;
 }
 -(void)popWindowToFrontAwayFromCursor:(NSWindow *)theWindow {
