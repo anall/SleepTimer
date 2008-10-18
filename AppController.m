@@ -222,7 +222,7 @@
     
     components = [gregorian components:unitFlags fromDate:[gregorian dateByAddingComponents:addComponents toDate:currentDate options:0]];
     components.hour = 0;
-    components.minute = 0;
+    components.minute = -1;
     
     [addComponents release];
 
