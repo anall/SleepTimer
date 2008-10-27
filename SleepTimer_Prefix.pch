@@ -3,5 +3,6 @@
 //
 
 #ifdef __OBJC__
+    #include <Carbon/Carbon.h>
     #import <Cocoa/Cocoa.h>
 #endif

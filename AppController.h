@@ -11,36 +11,41 @@
 
 @interface AppController : NSObject {
     NSCalendar *gregorian; // This is used enough might as well keep it around.
-    
+
     NSMutableArray *bedtimes;
     NSMutableArray *warnTimes;
     NSMutableArray *nagTimes;
-    
+
     IBOutlet NSWindow *mainWindow;
     IBOutlet NSTableColumn *prefsTimeColumn;
     IBOutlet NSArrayController *bedtimeArrayController;
     IBOutlet NSArrayController *warnTimeArrayController;
-    
+
     IBOutlet NSWindow *warningWindow;
     IBOutlet NSTextField *warningWhich;
     IBOutlet NSTextField *warningReason;
-    
+
     IBOutlet NSWindow *nagWindow;
     IBOutlet NSTextField *nagWhich;
     IBOutlet NSTextField *nagReason;
-    
+
     IBOutlet NSTextField *countDownText;
     IBOutlet NSTextField *countDownReason;
-    
+
     BOOL inWarning;
     NSDate *skipPast;
     NSDate *currentBedtime;
     NSString *currentBedtimeReason;
+    NSString *currentBedtimeDialogReason;
     NSMutableArray *warningDates;
     NSMutableArray *pendingNags;
-    
+
     NSTimer *timer;
     NSTimer *tickTimer;
+
+    NSTimer *keepFrontTimer;
+    NSWindow *keepFrontWindow;
+    int putFronts;
 }
 @property (retain) NSMutableArray *bedtimes;
 @property (retain) NSMutableArray *warnTimes;
@@ -65,16 +70,25 @@
 @property (retain) NSDate *skipPast;
 @property (retain) NSDate *currentBedtime;
 @property (retain) NSString *currentBedtimeReason;
+@property (retain) NSString *currentBedtimeDialogReason;
 @property (retain) NSMutableArray *warningDates;
 @property (retain) NSMutableArray *pendingNags;
 
 @property (retain) NSTimer *tickTimer;
 @property (retain) NSTimer *timer;
 
+@property (retain) NSTimer *keepFrontTimer;
+@property (retain) NSWindow *keepFrontWindow;
+@property int putFronts;
+
 #pragma mark Actions
 -(IBAction)sortBedtimes:(id)sender;
 -(IBAction)sortWarnTimes:(id)sender;
 -(IBAction)resetBedtime:(id)sender;
+-(IBAction)dismissWindow:(id)sender;
+
+#pragma mark Test Actions
+-(IBAction)testWarning:(id)sender;
 
 #pragma mark Settings
 -(void)loadSettings;

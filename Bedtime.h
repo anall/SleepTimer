@@ -13,9 +13,12 @@
     BOOL enabled;
     NSDateComponents *time;
     NSString *nagText;
+    NSString *dialogText;
 }
 @property BOOL enabled;
 @property (retain) NSDateComponents *time;
 @property (retain) NSString *nagText;
+@property (retain) NSString *dialogText;
+
 
 @end

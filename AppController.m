@@ -22,6 +22,10 @@
 -(void)doWarning:(NSTimer *)t;
 -(void)doNag:(NSTimer *)t;
 -(void)doTick:(NSTimer *)t;
+
+-(void)setupKeepFrontFor:(NSWindow *)window;
+-(void)keepFrontTick:(NSTimer *)t;
+-(void)abortKeepFront;
 @end
 
 @implementation AppController
@@ -43,12 +47,14 @@
 @synthesize countDownText,countDownReason;
 
 @synthesize skipPast;
-@synthesize currentBedtime,currentBedtimeReason;
+@synthesize currentBedtime,currentBedtimeReason,currentBedtimeDialogReason;
 
 @synthesize warningDates;
 @synthesize pendingNags;
 
 @synthesize timer,tickTimer;
+
+@synthesize keepFrontTimer, keepFrontWindow, putFronts;
 
 #pragma mark Setup
 - (id)init {
@@ -94,12 +100,16 @@
     [skipPast release];
     [currentBedtime release];
     [currentBedtimeReason release];
+    [currentBedtimeDialogReason release];
     
     [warningDates release];
     [pendingNags release];
     
     [timer release];
     [tickTimer release];
+    
+    [keepFrontTimer release];
+    [keepFrontWindow release];
     
     [super dealloc];
 }
@@ -127,7 +137,15 @@
 }
 -(IBAction)resetBedtime:(id)sender {
 }
-
+-(IBAction)dismissWindow:(id)sender {
+    NSWindow *w = keepFrontWindow;
+    [self abortKeepFront];
+    [w orderOut:sender];
+}
+#pragma mark Test Actions
+-(IBAction)testWarning:(id)sender {
+    [self doWarning:nil];
+}
 #pragma mark Settings
 -(void)loadSettings {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -143,8 +161,9 @@
         bedtime.time.hour = [[_bedtime valueForKey:@"hour"] intValue];
         bedtime.time.minute = [[_bedtime valueForKey:@"minute"] intValue];
         bedtime.nagText = [_bedtime valueForKey:@"nagText"];
-        if (bedtime.nagText == nil)
-            bedtime.nagText = @"";
+        if (bedtime.nagText == nil) bedtime.nagText = @"";
+        bedtime.dialogText = [_bedtime valueForKey:@"dialogText"];
+        if (bedtime.dialogText == nil) bedtime.dialogText = bedtime.nagText;
         [bedtimes addObject:bedtime];
     }
     
@@ -171,7 +190,8 @@
                           [NSNumber numberWithBool:bedtime.enabled],@"enabled",
                           [NSNumber numberWithInt:bedtime.time.hour],@"hour",
                           [NSNumber numberWithInt:bedtime.time.minute],@"minute",
-                          bedtime.nagText,@"nagText",nil]];
+                          bedtime.nagText,@"nagText",
+                          bedtime.dialogText,@"dialogText",nil]];
     }
     [defaults setObject:array forKey:@"bedtimes"];
     
@@ -331,6 +351,7 @@
     Bedtime *bedtime = [self getNearestBedtime:&_date];
     self.currentBedtime = _date;
     self.currentBedtimeReason = bedtime.nagText;
+    self.currentBedtimeDialogReason = bedtime.dialogText;
     
     if (currentBedtime == nil) {
         if (tickTimer) {
@@ -390,19 +411,25 @@
     }
 }
 -(void)doWarning:(NSTimer *)t {
+    [self abortKeepFront];
+    [nagWindow orderOut:nil];
     [self popWindowToFrontAwayFromCursor:warningWindow];
     [warningWhich setStringValue:@"Lorem Ipsum"];
     [warningReason setStringValue:currentBedtimeReason];
     [self enqueueNext];
+    [self setupKeepFrontFor:warningWindow];
 }
 -(void)doNag:(NSTimer *)t {
+    [self abortKeepFront];
+    [warningWindow orderOut:nil];
     [self popWindowToFrontAwayFromCursor:nagWindow];
     [nagWhich setStringValue:@"Lorem Ipsum, damnit!"];
     [nagReason setStringValue:currentBedtimeReason];
     [self enqueueNext];
+    [self setupKeepFrontFor:nagWindow];
 }
 -(void)doTick:(NSTimer *)t {
-    [countDownReason setStringValue:currentBedtimeReason];
+    [countDownReason setStringValue:currentBedtimeDialogReason];
     int interval = [currentBedtime timeIntervalSinceNow] / 60;
     if (interval > 0)
         [countDownText setStringValue:[NSString stringWithFormat:@"%i minutes away",interval]];
@@ -410,6 +437,38 @@
         [countDownText setStringValue:@"=="];
     else
         [countDownText setStringValue:[NSString stringWithFormat:@"%i minutes past",-interval]];
+}
+#pragma mark KeepFront Stuff
+-(void)setupKeepFrontFor:(NSWindow *)window {
+    self.keepFrontWindow = window;
+    self.putFronts = 0;
+    self.keepFrontTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(keepFrontTick:) userInfo:nil repeats:YES]; 
+}
+-(void)keepFrontTick:(NSTimer *)t {
+    NSDictionary *activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
+    NSString *activeBundleID = [activeAppDict objectForKey:@"NSApplicationBundleIdentifier"];
+    NSString *currentBundleID = [[NSBundle mainBundle] bundleIdentifier];
+    if (![activeBundleID isEqualToString:currentBundleID]) {
+        putFronts++;
+        if (putFronts < 10) {
+            inWarning = YES;
+            [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+            [keepFrontWindow makeKeyAndOrderFront:nil];
+            inWarning = NO;
+        } else {
+            NSTimeInterval interval = [keepFrontTimer timeInterval];
+            interval *= 2;
+            [keepFrontTimer invalidate];
+            putFronts = 2;
+            self.keepFrontTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(keepFrontTick:) userInfo:nil repeats:YES]; 
+        }
+    } else {
+        [keepFrontWindow orderFront:nil];
+    }
+}
+-(void)abortKeepFront {
+    [keepFrontTimer invalidate]; self.keepFrontTimer = nil;
+    self.keepFrontWindow = nil;
 }
 @end
 
