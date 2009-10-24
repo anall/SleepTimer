@@ -19,7 +19,6 @@ Things still to implement:
 	- Nag text (can be multi-line)
 
 
-
 Newbie Cheat Sheet for Ricky:
 
 Before working:
