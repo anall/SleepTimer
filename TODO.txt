@@ -4,7 +4,6 @@ Things still to implement:
 - Format time to/from alarms in hours:minutes if it's more than 59 minutes
 - Change of language: "alarm time" instead of "bed time" throughout app
 - Menu item telling program to use the next/previous alarm time as the base instead of the one it's using
-- Set initial positions for main window and prefs to center of screen
 - Set some default alarms for new installations
 - A debug mode which warns/nags each minute for testing?
 - Fix window titles on warn/nags to be the event name

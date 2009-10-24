@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
-		682120E4109154FF001480E5 /* TO DO.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 682120E3109154FF001480E5 /* TO DO.rtf */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		94260A770EA47EAA00AD1903 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94260A760EA47EAA00AD1903 /* AppController.m */; };
 		94260A7A0EA47F9500AD1903 /* TimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94260A790EA47F9500AD1903 /* TimeFormatter.m */; };
 		94260A810EA4808D00AD1903 /* Bedtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 94260A800EA4808D00AD1903 /* Bedtime.m */; };
+		94811DAE1093B5EA002BE3AB /* TODO.txt in Resources */ = {isa = PBXBuildFile; fileRef = 94811DAD1093B5EA002BE3AB /* TODO.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +26,6 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* SleepTimer_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleepTimer_Prefix.pch; sourceTree = "<group>"; };
-		682120E3109154FF001480E5 /* TO DO.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "TO DO.rtf"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* SleepTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SleepTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94260A750EA47EAA00AD1903 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
@@ -35,6 +34,7 @@
 		94260A790EA47F9500AD1903 /* TimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeFormatter.m; sourceTree = "<group>"; };
 		94260A7F0EA4808D00AD1903 /* Bedtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bedtime.h; sourceTree = "<group>"; };
 		94260A800EA4808D00AD1903 /* Bedtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bedtime.m; sourceTree = "<group>"; };
+		94811DAD1093B5EA002BE3AB /* TODO.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +52,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				682120E3109154FF001480E5 /* TO DO.rtf */,
 				94260A750EA47EAA00AD1903 /* AppController.h */,
 				94260A760EA47EAA00AD1903 /* AppController.m */,
 				94260A780EA47F9500AD1903 /* TimeFormatter.h */,
@@ -92,6 +91,7 @@
 		29B97314FDCFA39411CA2CEA /* SleepTimer */ = {
 			isa = PBXGroup;
 			children = (
+				94811DAD1093B5EA002BE3AB /* TODO.txt */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -174,7 +174,7 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
-				682120E4109154FF001480E5 /* TO DO.rtf in Resources */,
+				94811DAE1093B5EA002BE3AB /* TODO.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
