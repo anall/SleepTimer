@@ -406,10 +406,8 @@
     } else {
         // Okay, so the alarm is in the future...
         NSDate *when = [warningDates objectAtIndex:0];
-        [when retain];
-        [warningDates removeObjectAtIndex:0];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:[when timeIntervalSinceNow] target:self selector:@selector(doWarning:) userInfo:nil repeats:NO];
-        [when release];
+        [warningDates removeObjectAtIndex:0];
     }
 }
 // Alarm time approaching

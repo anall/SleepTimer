@@ -1,5 +1,7 @@
 Things still to implement:
 
+- Migrate settings to use CoreData
+- Split windows into multiple .xib files
 - Change colour of Warning/Nag dialog background colour depending on time to/from the alarm - (first warning) green-yellow-orange (alarm time)-red (warnings)
 - Format time to/from alarms in hours:minutes if it's more than 59 minutes
 - Change of language: "alarm time" instead of "bed time" throughout app
