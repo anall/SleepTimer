@@ -17,3 +17,15 @@ Things still to implement:
 	- Nag Times
 	- Warning text (can be multi-line)
 	- Nag text (can be multi-line)
+
+
+
+Newbie Cheat Sheet for Ricky:
+
+Before working:
+cd ~/Programming/SleepTimer
+git pull
+	
+To push any changes:
+git commit -a
+git push
