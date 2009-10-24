@@ -1,4 +1,5 @@
 .DS_Store
 **/.DS_Store
 build
-SleepTimer.xcodeproj/anall*
+SleepTimer.xcodeproj/*.mode1v3
+SleepTimer.xcodeproj/*.pbxuser

@@ -406,24 +406,32 @@
     } else {
         // Okay, so the alarm is in the future...
         NSDate *when = [warningDates objectAtIndex:0];
+        [when retain];
         [warningDates removeObjectAtIndex:0];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:[when timeIntervalSinceNow] target:self selector:@selector(doWarning:) userInfo:nil repeats:NO];
+        [when release];
     }
 }
--(void)doWarning:(NSTimer *)t {
+// Alarm time approaching
+-(void)doWarning:(NSTimer *)t { 
     [self abortKeepFront];
     [nagWindow orderOut:nil];
     [self popWindowToFrontAwayFromCursor:warningWindow];
-    [warningWhich setStringValue:@"Lorem Ipsum"];
+    int interval = [currentBedtime timeIntervalSinceNow] / 60;
+    if (interval > 0)
+        [warningWhich setStringValue:[NSString stringWithFormat:@"In %i minutes",interval]];
     [warningReason setStringValue:currentBedtimeReason];
     [self enqueueNext];
     [self setupKeepFrontFor:warningWindow];
 }
+// Alarm time is past
 -(void)doNag:(NSTimer *)t {
     [self abortKeepFront];
     [warningWindow orderOut:nil];
     [self popWindowToFrontAwayFromCursor:nagWindow];
-    [nagWhich setStringValue:@"Lorem Ipsum, damnit!"];
+    int interval = [currentBedtime timeIntervalSinceNow] / 60;
+    if (interval > 0)
+        [nagWhich setStringValue:[NSString stringWithFormat:@"%i minutes ago",interval]];
     [nagReason setStringValue:currentBedtimeReason];
     [self enqueueNext];
     [self setupKeepFrontFor:nagWindow];
@@ -432,11 +440,11 @@
     [countDownReason setStringValue:currentBedtimeDialogReason];
     int interval = [currentBedtime timeIntervalSinceNow] / 60;
     if (interval > 0)
-        [countDownText setStringValue:[NSString stringWithFormat:@"%i minutes away",interval]];
+			[countDownText setStringValue:[NSString stringWithFormat:@"In %i minutes",interval]];
     else if (interval == 0)
-        [countDownText setStringValue:@"=="];
+        [countDownText setStringValue:@"right now"];
     else
-        [countDownText setStringValue:[NSString stringWithFormat:@"%i minutes past",-interval]];
+        [countDownText setStringValue:[NSString stringWithFormat:@"%i minutes ago",-interval]];
 }
 #pragma mark KeepFront Stuff
 -(void)setupKeepFrontFor:(NSWindow *)window {
