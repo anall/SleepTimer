@@ -428,8 +428,8 @@
     [warningWindow orderOut:nil];
     [self popWindowToFrontAwayFromCursor:nagWindow];
     int interval = [currentBedtime timeIntervalSinceNow] / 60;
-    if (interval > 0)
-        [nagWhich setStringValue:[NSString stringWithFormat:@"%i minutes ago",interval]];
+    if (interval < 0)
+        [nagWhich setStringValue:[NSString stringWithFormat:@"%i minutes ago",-interval]];
     [nagReason setStringValue:currentBedtimeReason];
     [self enqueueNext];
     [self setupKeepFrontFor:nagWindow];
