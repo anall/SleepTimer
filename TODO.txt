@@ -1,5 +1,6 @@
 Things still to implement:
 
+- Make Nag/Warnings only beep if SleepTimer is not the app with focus when the time comes. Commented beeps out totally for now as they're driving me batshit insane -  when I fall asleep and this is active it beeps every 15 minutes and wakes me up.
 - Migrate settings to use CoreData
 - Split windows into multiple .xib files
 - Change colour of Warning/Nag dialog background colour depending on time to/from the alarm - (first warning) green-yellow-orange (alarm time)-red (warnings)

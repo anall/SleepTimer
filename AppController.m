@@ -339,7 +339,7 @@
     frame.size = windowSize;
     [theWindow setFrame:frame display:NO];
     
-    NSBeep(); NSBeep();
+    // NSBeep(); NSBeep();
     [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
     [theWindow makeKeyAndOrderFront:nil];
     
@@ -417,7 +417,7 @@
     [self popWindowToFrontAwayFromCursor:warningWindow];
     int interval = [currentBedtime timeIntervalSinceNow] / 60;
     if (interval > 0)
-        [warningWhich setStringValue:[NSString stringWithFormat:@"In %i minutes",interval]];
+        [warningWhich setStringValue:[NSString stringWithFormat:@"In %i minutes",interval+1]];
     [warningReason setStringValue:currentBedtimeReason];
     [self enqueueNext];
     [self setupKeepFrontFor:warningWindow];
@@ -429,7 +429,7 @@
     [self popWindowToFrontAwayFromCursor:nagWindow];
     int interval = [currentBedtime timeIntervalSinceNow] / 60;
     if (interval < 0)
-        [nagWhich setStringValue:[NSString stringWithFormat:@"%i minutes ago",-interval]];
+        [nagWhich setStringValue:[NSString stringWithFormat:@"%i minutes ago",-(interval+1)]];
     [nagReason setStringValue:currentBedtimeReason];
     [self enqueueNext];
     [self setupKeepFrontFor:nagWindow];
