@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,7 +13,7 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		94260A770EA47EAA00AD1903 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94260A760EA47EAA00AD1903 /* AppController.m */; };
 		94260A7A0EA47F9500AD1903 /* TimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94260A790EA47F9500AD1903 /* TimeFormatter.m */; };
-		94260A810EA4808D00AD1903 /* Bedtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 94260A800EA4808D00AD1903 /* Bedtime.m */; };
+		94260A810EA4808D00AD1903 /* Alarmtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 94260A800EA4808D00AD1903 /* Alarmtime.m */; };
 		94811DAE1093B5EA002BE3AB /* TODO.txt in Resources */ = {isa = PBXBuildFile; fileRef = 94811DAD1093B5EA002BE3AB /* TODO.txt */; };
 /* End PBXBuildFile section */
 
@@ -25,15 +25,15 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		32CA4F630368D1EE00C91783 /* SleepTimer_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleepTimer_Prefix.pch; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* AlarmTimer_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmTimer_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* SleepTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SleepTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* AlarmTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlarmTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94260A750EA47EAA00AD1903 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		94260A760EA47EAA00AD1903 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
 		94260A780EA47F9500AD1903 /* TimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeFormatter.h; sourceTree = "<group>"; };
 		94260A790EA47F9500AD1903 /* TimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeFormatter.m; sourceTree = "<group>"; };
-		94260A7F0EA4808D00AD1903 /* Bedtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bedtime.h; sourceTree = "<group>"; };
-		94260A800EA4808D00AD1903 /* Bedtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bedtime.m; sourceTree = "<group>"; };
+		94260A7F0EA4808D00AD1903 /* Alarmtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alarmtime.h; sourceTree = "<group>"; };
+		94260A800EA4808D00AD1903 /* Alarmtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alarmtime.m; sourceTree = "<group>"; };
 		94811DAD1093B5EA002BE3AB /* TODO.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,8 +56,8 @@
 				94260A760EA47EAA00AD1903 /* AppController.m */,
 				94260A780EA47F9500AD1903 /* TimeFormatter.h */,
 				94260A790EA47F9500AD1903 /* TimeFormatter.m */,
-				94260A7F0EA4808D00AD1903 /* Bedtime.h */,
-				94260A800EA4808D00AD1903 /* Bedtime.m */,
+				94260A7F0EA4808D00AD1903 /* Alarmtime.h */,
+				94260A800EA4808D00AD1903 /* Alarmtime.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -83,7 +83,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107320486CEB800E47090 /* SleepTimer.app */,
+				8D1107320486CEB800E47090 /* AlarmTimer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -104,7 +104,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				32CA4F630368D1EE00C91783 /* SleepTimer_Prefix.pch */,
+				32CA4F630368D1EE00C91783 /* AlarmTimer_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -132,9 +132,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D1107260486CEB800E47090 /* SleepTimer */ = {
+		8D1107260486CEB800E47090 /* AlarmTimer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "SleepTimer" */;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "AlarmTimer" */;
 			buildPhases = (
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
@@ -144,10 +144,10 @@
 			);
 			dependencies = (
 			);
-			name = SleepTimer;
+			name = AlarmTimer;
 			productInstallPath = "$(HOME)/Applications";
 			productName = SleepTimer;
-			productReference = 8D1107320486CEB800E47090 /* SleepTimer.app */;
+			productReference = 8D1107320486CEB800E47090 /* AlarmTimer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -155,14 +155,21 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SleepTimer" */;
-			compatibilityVersion = "Xcode 3.1";
+			attributes = {
+				LastUpgradeCheck = 0460;
+			};
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "AlarmTimer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* SleepTimer */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D1107260486CEB800E47090 /* SleepTimer */,
+				8D1107260486CEB800E47090 /* AlarmTimer */,
 			);
 		};
 /* End PBXProject section */
@@ -188,7 +195,7 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				94260A770EA47EAA00AD1903 /* AppController.m in Sources */,
 				94260A7A0EA47F9500AD1903 /* TimeFormatter.m in Sources */,
-				94260A810EA4808D00AD1903 /* Bedtime.m in Sources */,
+				94260A810EA4808D00AD1903 /* Alarmtime.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,16 +225,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = SleepTimer_Prefix.pch;
+				GCC_PREFIX_HEADER = AlarmTimer_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_NAME = SleepTimer;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = AlarmTimer;
 			};
 			name = Debug;
 		};
@@ -235,13 +243,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = SleepTimer_Prefix.pch;
+				GCC_PREFIX_HEADER = AlarmTimer_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_NAME = SleepTimer;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = AlarmTimer;
 			};
 			name = Release;
 		};
@@ -255,9 +265,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Debug;
@@ -269,15 +278,14 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "SleepTimer" */ = {
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "AlarmTimer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4B08A954540054247B /* Debug */,
@@ -286,7 +294,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SleepTimer" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "AlarmTimer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,

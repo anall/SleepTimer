@@ -1,5 +1,5 @@
 //
-//  Bedtime.h
+//  alarmtime.h
 //  SleepTimer
 //
 //  Created by Andrea Nall on 10/14/08.
@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface Bedtime : NSObject {
+@interface alarmtime : NSObject {
     BOOL enabled;
     NSDateComponents *time;
     NSString *nagText;
