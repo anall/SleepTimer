@@ -12,13 +12,13 @@
 @interface AppController : NSObject {
     NSCalendar *gregorian; // This is used enough might as well keep it around.
 
-    NSMutableArray *alarmtimes;
+    NSMutableArray *bedtimes;
     NSMutableArray *warnTimes;
     NSMutableArray *nagTimes;
 
     IBOutlet NSWindow *mainWindow;
     IBOutlet NSTableColumn *prefsTimeColumn;
-    IBOutlet NSArrayController *alarmtimeArrayController;
+    IBOutlet NSArrayController *bedtimeArrayController;
     IBOutlet NSArrayController *warnTimeArrayController;
 
     IBOutlet NSWindow *warningWindow;
@@ -34,9 +34,9 @@
 
     BOOL inWarning;
     NSDate *skipPast;
-    NSDate *currentalarmtime;
-    NSString *currentalarmtimeReason;
-    NSString *currentalarmtimeDialogReason;
+    NSDate *currentBedtime;
+    NSString *currentBedtimeReason;
+    NSString *currentBedtimeDialogReason;
     NSMutableArray *warningDates;
     NSMutableArray *pendingNags;
 
@@ -47,13 +47,13 @@
     NSWindow *keepFrontWindow;
     int putFronts;
 }
-@property (retain) NSMutableArray *alarmtimes;
+@property (retain) NSMutableArray *bedtimes;
 @property (retain) NSMutableArray *warnTimes;
 @property (retain) NSMutableArray *nagTimes;
 
 @property (retain) NSWindow *mainWindow;
 @property (retain) NSTableColumn *prefsTimeColumn;
-@property (retain) NSArrayController *alarmtimeArrayController;
+@property (retain) NSArrayController *bedtimeArrayController;
 @property (retain) NSArrayController *warnTimeArrayController;
 
 @property (retain) NSWindow *warningWindow;
@@ -68,9 +68,9 @@
 @property (retain) NSTextField *countDownReason;
 
 @property (retain) NSDate *skipPast;
-@property (retain) NSDate *currentalarmtime;
-@property (retain) NSString *currentalarmtimeReason;
-@property (retain) NSString *currentalarmtimeDialogReason;
+@property (retain) NSDate *currentBedtime;
+@property (retain) NSString *currentBedtimeReason;
+@property (retain) NSString *currentBedtimeDialogReason;
 @property (retain) NSMutableArray *warningDates;
 @property (retain) NSMutableArray *pendingNags;
 
@@ -82,9 +82,9 @@
 @property int putFronts;
 
 #pragma mark Actions
--(IBAction)sortalarmtimes:(id)sender;
+-(IBAction)sortBedtimes:(id)sender;
 -(IBAction)sortWarnTimes:(id)sender;
--(IBAction)resetalarmtime:(id)sender;
+-(IBAction)resetBedtime:(id)sender;
 -(IBAction)dismissWindow:(id)sender;
 
 #pragma mark Test Actions
@@ -96,5 +96,5 @@
 
 @end
 
-NSComparisonResult sortalarmtimes(id num1, id num2, void *context);
+NSComparisonResult sortBedtimes(id num1, id num2, void *context);
 NSComparisonResult sortWarnTimes(id num1, id num2, void *context);

@@ -1,15 +1,15 @@
 //
-//  alarmtime.m
+//  Bedtime.m
 //  SleepTimer
 //
 //  Created by Andrea Nall on 10/14/08.
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import "alarmtime.h"
+#import "Bedtime.h"
 
 
-@implementation alarmtime
+@implementation Bedtime
 @synthesize enabled, time, nagText, dialogText;
 
 -(id)init {

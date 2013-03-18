@@ -7,12 +7,12 @@
 //
 
 #import "AppController.h"
-#import "alarmtime.h"
+#import "Bedtime.h"
 #import "TimeFormatter.h"
 
 @interface AppController (Private)
--(alarmtime*)getNearestalarmtime:(NSDate **)date;
--(alarmtime*)getNearestalarmtime:(NSDate **)date after:(NSDateComponents *)components;
+-(Bedtime*)getNearestBedtime:(NSDate **)date;
+-(Bedtime*)getNearestBedtime:(NSDate **)date after:(NSDateComponents *)components;
 -(void)popWindowToFrontAwayFromCursor:(NSWindow *)theWindow;
 
 
@@ -29,11 +29,11 @@
 @end
 
 @implementation AppController
-@synthesize alarmtimes, warnTimes, nagTimes;
+@synthesize bedtimes, warnTimes, nagTimes;
 
 @synthesize mainWindow;
 @synthesize prefsTimeColumn;
-@synthesize alarmtimeArrayController;
+@synthesize bedtimeArrayController;
 @synthesize warnTimeArrayController;
 
 @synthesize warningWindow;
@@ -47,7 +47,7 @@
 @synthesize countDownText,countDownReason;
 
 @synthesize skipPast;
-@synthesize currentalarmtime,currentalarmtimeReason,currentalarmtimeDialogReason;
+@synthesize currentBedtime,currentBedtimeReason,currentBedtimeDialogReason;
 
 @synthesize warningDates;
 @synthesize pendingNags;
@@ -66,7 +66,7 @@
         
         inWarning = NO;
         skipPast = nil;
-        currentalarmtime = nil;
+        currentBedtime = nil;
     }
     return self;
 }
@@ -77,13 +77,13 @@
 - (void)dealloc {
     [gregorian release];
     
-    [alarmtimes release];
+    [bedtimes release];
     [warnTimes release];
     [nagTimes release];
     
     [mainWindow release];
     [prefsTimeColumn release];
-    [alarmtimeArrayController release];
+    [bedtimeArrayController release];
     [warnTimeArrayController release];
     
     [warningWindow release];
@@ -98,9 +98,9 @@
     [countDownReason release];
     
     [skipPast release];
-    [currentalarmtime release];
-    [currentalarmtimeReason release];
-    [currentalarmtimeDialogReason release];
+    [currentBedtime release];
+    [currentBedtimeReason release];
+    [currentBedtimeDialogReason release];
     
     [warningDates release];
     [pendingNags release];
@@ -125,17 +125,17 @@
 }
 
 #pragma mark Actions
--(IBAction)sortalarmtimes:(id)sender {
-    [alarmtimes sortUsingFunction:sortalarmtimes context:nil];
-    [self didChangeValueForKey:@"alarmtimes"];
-    [alarmtimeArrayController rearrangeObjects];
+-(IBAction)sortBedtimes:(id)sender {
+    [bedtimes sortUsingFunction:sortBedtimes context:nil];
+    [self didChangeValueForKey:@"bedtimes"];
+    [bedtimeArrayController rearrangeObjects];
 }
 -(IBAction)sortWarnTimes:(id)sender {
     [warnTimes sortUsingFunction:sortWarnTimes context:nil];
     [self didChangeValueForKey:@"warnTimes"];
     [warnTimeArrayController rearrangeObjects];
 }
--(IBAction)resetalarmtime:(id)sender {
+-(IBAction)resetBedtime:(id)sender {
 }
 -(IBAction)dismissWindow:(id)sender {
     NSWindow *w = keepFrontWindow;
@@ -149,22 +149,22 @@
 #pragma mark Settings
 -(void)loadSettings {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.alarmtimes = [NSMutableArray array];
+    self.bedtimes = [NSMutableArray array];
     self.warnTimes = [NSMutableArray array];
     self.nagTimes = [NSMutableArray array];
     
-    NSArray *_alarmtimes = [defaults arrayForKey:@"alarmtimes"];
-    for (NSDictionary *_alarmtime in _alarmtimes) {
-        alarmtime *alarmtime = [[[alarmtime alloc] init] autorelease];
-        alarmtime.enabled = [[_alarmtime valueForKey:@"enabled"] boolValue];
-        alarmtime.time = [[[NSDateComponents alloc] init] autorelease];
-        alarmtime.time.hour = [[_alarmtime valueForKey:@"hour"] intValue];
-        alarmtime.time.minute = [[_alarmtime valueForKey:@"minute"] intValue];
-        alarmtime.nagText = [_alarmtime valueForKey:@"nagText"];
-        if (alarmtime.nagText == nil) alarmtime.nagText = @"";
-        alarmtime.dialogText = [_alarmtime valueForKey:@"dialogText"];
-        if (alarmtime.dialogText == nil) alarmtime.dialogText = alarmtime.nagText;
-        [alarmtimes addObject:alarmtime];
+    NSArray *_bedtimes = [defaults arrayForKey:@"bedtimes"];
+    for (NSDictionary *_bedtime in _bedtimes) {
+        Bedtime *bedtime = [[[Bedtime alloc] init] autorelease];
+        bedtime.enabled = [[_bedtime valueForKey:@"enabled"] boolValue];
+        bedtime.time = [[[NSDateComponents alloc] init] autorelease];
+        bedtime.time.hour = [[_bedtime valueForKey:@"hour"] intValue];
+        bedtime.time.minute = [[_bedtime valueForKey:@"minute"] intValue];
+        bedtime.nagText = [_bedtime valueForKey:@"nagText"];
+        if (bedtime.nagText == nil) bedtime.nagText = @"";
+        bedtime.dialogText = [_bedtime valueForKey:@"dialogText"];
+        if (bedtime.dialogText == nil) bedtime.dialogText = bedtime.nagText;
+        [bedtimes addObject:bedtime];
     }
     
     NSArray *_warnTimes = [defaults arrayForKey:@"warnTimes"];
@@ -181,19 +181,19 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *array;
     
-    [self sortalarmtimes:nil];
+    [self sortBedtimes:nil];
     [self sortWarnTimes:nil];
     
     array = [NSMutableArray array];
-    for (alarmtime *alarmtime in alarmtimes) {
+    for (Bedtime *bedtime in bedtimes) {
         [array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSNumber numberWithBool:alarmtime.enabled],@"enabled",
-                          [NSNumber numberWithInt:alarmtime.time.hour],@"hour",
-                          [NSNumber numberWithInt:alarmtime.time.minute],@"minute",
-                          alarmtime.nagText,@"nagText",
-                          alarmtime.dialogText,@"dialogText",nil]];
+                          [NSNumber numberWithBool:bedtime.enabled],@"enabled",
+                          [NSNumber numberWithInt:bedtime.time.hour],@"hour",
+                          [NSNumber numberWithInt:bedtime.time.minute],@"minute",
+                          bedtime.nagText,@"nagText",
+                          bedtime.dialogText,@"dialogText",nil]];
     }
-    [defaults setObject:array forKey:@"alarmtimes"];
+    [defaults setObject:array forKey:@"bedtimes"];
     
     array = [NSMutableArray array];
     for (NSDictionary *dict in warnTimes)
@@ -207,18 +207,18 @@
 }
 
 #pragma mark Private
--(alarmtime*)getNearestalarmtime:(NSDate **)_date {
+-(Bedtime*)getNearestBedtime:(NSDate **)_date {
     // lets make SURE we're sorted.
-    [self sortalarmtimes:nil];
+    [self sortBedtimes:nil];
     [self sortWarnTimes:nil];
     
-    // No alarmtimes, no nearest one
-    if ([alarmtimes count] == 0)
+    // No bedtimes, no nearest one
+    if ([bedtimes count] == 0)
         return nil;
     
     unsigned int unitFlags;
     NSDate *currentDate = [NSDate date];
-    alarmtime *alarmtime;
+    Bedtime *bedtime;
     
     // Check if we need to skip
     if (skipPast != nil) {
@@ -231,10 +231,10 @@
     
     // Lets see if we can find something today
     // The first one we find in the future is nearest.
-    alarmtime = [self getNearestalarmtime:_date after:components];
+    bedtime = [self getNearestBedtime:_date after:components];
     
-    if (alarmtime != nil)
-        return alarmtime;
+    if (bedtime != nil)
+        return bedtime;
     
     // Okay, there is nothing for today, so get the first enabled one for tomorrow.
     NSDateComponents *addComponents = [[NSDateComponents alloc] init];
@@ -246,43 +246,42 @@
     
     [addComponents release];
 
-    alarmtime = [self getNearestalarmtime:_date after:components];
+    bedtime = [self getNearestBedtime:_date after:components];
     
-    if (alarmtime != nil)
-        return alarmtime;
+    if (bedtime != nil)
+        return bedtime;
 
     // Oops, we found nothing.
     *_date = nil;
     return nil;
 }
--(alarmtime*)getNearestalarmtime:(NSDate **)_date after:(NSDateComponents *)components {
-    alarmtime *aTime;
-    NSDateComponents *alarmtimeTime = nil;
-    alarmtime *alarmtime;
+-(Bedtime*)getNearestBedtime:(NSDate **)_date after:(NSDateComponents *)components {
+    NSDateComponents *bedtimeTime = nil;
+    Bedtime *bedtime;
     
     *_date = nil;
-    for (aTime in alarmtimes) {
-        NSDateComponents *time = aTime.time;
-        if (!aTime.enabled) {
+    for (Bedtime *bTime in bedtimes) { 
+        NSDateComponents *time = bTime.time;
+        if (!bTime.enabled) {
         } else if (time.hour > components.hour) {
-            alarmtimeTime = time;
-            alarmtime = aTime;
+            bedtimeTime = time;
+            bedtime = bTime;
             break;
         } else if (time.hour == components.hour && time.minute > components.minute) {
-            alarmtimeTime = time;
-            alarmtime = aTime;
+            bedtimeTime = time;
+            bedtime = bTime;
             break;
         }
     }
 
-    if (alarmtimeTime != nil) {
-        components.hour = alarmtimeTime.hour;
-        components.minute = alarmtimeTime.minute;
+    if (bedtimeTime != nil) {
+        components.hour = bedtimeTime.hour;
+        components.minute = bedtimeTime.minute;
         components.second = 0;
         
         *_date = [gregorian dateFromComponents:components];
         
-        return alarmtime;
+        return bedtime;
     }
     
     return nil;
@@ -349,12 +348,12 @@
 -(void)setupTimer {
     [countDownText setStringValue:@""];
     NSDate *_date = nil;
-    alarmtime *alarmtime = [self getNearestalarmtime:&_date];
-    self.currentalarmtime = _date;
-    self.currentalarmtimeReason = alarmtime.nagText;
-    self.currentalarmtimeDialogReason = alarmtime.dialogText;
+    Bedtime *bedtime = [self getNearestBedtime:&_date];
+    self.currentBedtime = _date;
+    self.currentBedtimeReason = bedtime.nagText;
+    self.currentBedtimeDialogReason = bedtime.dialogText;
     
-    if (currentalarmtime == nil) {
+    if (currentBedtime == nil) {
         if (tickTimer) {
             [tickTimer invalidate];
             self.tickTimer = nil;
@@ -372,7 +371,7 @@
     self.warningDates = [NSMutableArray array];
     for (NSDictionary *dict in warnTimes) {
         components.minute = -[[dict objectForKey:@"minutes"] intValue];
-        NSDate *warn = [gregorian dateByAddingComponents:components toDate:currentalarmtime options:0];
+        NSDate *warn = [gregorian dateByAddingComponents:components toDate:currentBedtime options:0];
         if ([warn timeIntervalSinceNow] > 0) {
             [warningDates addObject:warn];
         }
@@ -395,7 +394,7 @@
     if ([warningDates count] == 0) {
         // Okay, so this is nag time.
         // But first let's check if the alarm is still in the future
-        int interval = [currentalarmtime timeIntervalSinceNow];
+        int interval = [currentBedtime timeIntervalSinceNow];
         if (interval > 0) {
             self.timer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(doNag:) userInfo:nil repeats:NO];
         } else {
@@ -416,10 +415,10 @@
     [self abortKeepFront];
     [nagWindow orderOut:nil];
     [self popWindowToFrontAwayFromCursor:warningWindow];
-    int interval = [currentalarmtime timeIntervalSinceNow] / 60;
+    int interval = [currentBedtime timeIntervalSinceNow] / 60;
     if (interval > 0)
         [warningWhich setStringValue:[NSString stringWithFormat:@"In %i minutes",interval+1]];
-    [warningReason setStringValue:currentalarmtimeReason];
+    [warningReason setStringValue:currentBedtimeReason];
     [self enqueueNext];
     [self setupKeepFrontFor:warningWindow];
 }
@@ -428,16 +427,16 @@
     [self abortKeepFront];
     [warningWindow orderOut:nil];
     [self popWindowToFrontAwayFromCursor:nagWindow];
-    int interval = [currentalarmtime timeIntervalSinceNow] / 60;
+    int interval = [currentBedtime timeIntervalSinceNow] / 60;
     if (interval < 0)
         [nagWhich setStringValue:[NSString stringWithFormat:@"%i minutes ago",-(interval+1)]];
-    [nagReason setStringValue:currentalarmtimeReason];
+    [nagReason setStringValue:currentBedtimeReason];
     [self enqueueNext];
     [self setupKeepFrontFor:nagWindow];
 }
 -(void)doTick:(NSTimer *)t {
-    [countDownReason setStringValue:currentalarmtimeDialogReason];
-    int interval = [currentalarmtime timeIntervalSinceNow] / 60;
+    [countDownReason setStringValue:currentBedtimeDialogReason];
+    int interval = [currentBedtime timeIntervalSinceNow] / 60;
     if (interval > 0)
 			[countDownText setStringValue:[NSString stringWithFormat:@"In %i minutes",interval]];
     else if (interval == 0)
@@ -480,7 +479,7 @@
 @end
 
 #pragma mark Functions
-NSComparisonResult sortalarmtimes(id num1, id num2, void *context) {
+NSComparisonResult sortBedtimes(id num1, id num2, void *context) {
     NSDateComponents *c1 = [num1 time];
     NSDateComponents *c2 = [num2 time];
     

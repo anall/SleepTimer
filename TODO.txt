@@ -13,7 +13,7 @@ Things still to implement:
 - Better interface for setting alarms and warning/nag times
 - For each alarm we want to be able to set:
 	- Event Time
-	- Event Title ("nap time", "alarmtime")
+	- Event Title ("nap time", "bedtime")
 	- Warning Times
 	- Nag Times
 	- Warning text (can be multi-line)
