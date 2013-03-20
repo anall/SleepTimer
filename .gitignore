@@ -3,3 +3,5 @@
 build
 SleepTimer.xcodeproj/*.mode1v3
 SleepTimer.xcodeproj/*.pbxuser
+SleepTimer.xcodeproj/*xcuserdata*
+SleepTimer.xcodeproj/*xcuserstate
